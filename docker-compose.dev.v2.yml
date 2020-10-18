@@ -1,0 +1,87 @@
+version: '3'
+services:
+
+  #PHP FPM Service
+  phpfpm:
+    image: dariopad/php74-laravel:latest
+    container_name: laravel-php74
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - ./docker-compose.env
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    networks:
+      - dpnetwork
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    tty: true
+    #Temporary enabling host 8080 and 8443 for dev
+    ports:
+      - "8085:80"
+    depends_on:
+      - phpfpm
+      - mysql57
+    volumes:
+      - ./src:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/    
+    networks:
+      - dpnetwork
+
+  #MySQL Service
+  mysql57:
+    image: mysql:5.7.22
+    container_name: laravel-mysql57
+    restart: unless-stopped
+    tty: true
+    #for host dev enabling 33061
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: your_database #change
+      MYSQL_ROOT_PASSWORD: temp #change after deployment
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 #for testing purpose only
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./.docker/mysql/config:/etc/mysql
+      - ./.docker/mysql/dump:/docker-entrypoint-initdb.d
+    networks:
+      - dpnetwork
+
+  rediscache:
+    image: redis:alpine
+    container_name: laravel-redis
+    restart: unless-stopped
+    networks:
+      - dpnetwork
+
+  npm137:
+    image: node:13.7
+    container_name: laravel-npm
+    depends_on:
+      - phpfpm
+    volumes:
+      - ./src:/var/www
+    working_dir: /var/www
+    entrypoint: ['npm', 'run dev']
+    networks:
+      - dpnetwork    
+
+#Docker Networks
+networks:
+  dpnetwork:
+    external:
+        name: thepenguindockers
+
+#Volumes
+volumes:
+  dbdata:
+    external:
+      name: dbdata
