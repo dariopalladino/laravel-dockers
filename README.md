@@ -1,5 +1,5 @@
-PHP72-Laravel ![docker hub](https://img.shields.io/docker/pulls/dariopad/php72-laravel.svg?style=flat-square)
-Nginx-Laravel ![docker hub](https://img.shields.io/docker/pulls/dariopad/nginx-laravel.svg?style=flat-square)
+![PHP72-Laravel](https://img.shields.io/docker/pulls/dariopad/php72-laravel.svg?style=flat-square)
+![Nginx-Laravel](https://img.shields.io/docker/pulls/dariopad/nginx-laravel.svg?style=flat-square)
 
 ## Overview
 This is a Dockerfile/image repository to build a set of container with nginx, php-fpm, redis and mysql, ready to be used with Laravel. There is the ability to pull website code from git when the PHP-FPM container is created, by using the start.sh script. Of course, you can just map your source code folder to the container for development purposes.
