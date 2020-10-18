@@ -64,15 +64,15 @@ services:
     networks:
       - dpnetwork
 
-  # npm137:
-  #   image: node:13.7
-  #   container_name: laravel-npm
-  #   volumes:
-  #     - ./src:/var/www
-  #   working_dir: /var/www
-  #   entrypoint: ['npm']
-  #   networks:
-  #     - dpnetwork    
+  npm137:
+     image: node:13.7
+     container_name: laravel-npm
+     volumes:
+       - ./src:/var/www
+     working_dir: /var/www
+     entrypoint: ['npm', "update"]
+     networks:
+       - dpnetwork
 
 #Docker Networks
 networks:

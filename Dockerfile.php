@@ -25,7 +25,7 @@ RUN echo "*** Upgrading Alpine! ***" \
 RUN echo "*** Installing Composer! ***" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && echo "*** Installing PHP extentions! ***" \
-    && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell opcache pdo_mysql \
+    && docker-php-ext-install curl calendar gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell opcache pdo_mysql pdo_sqlite\
     && echo "*** Configuring PHP GD extension! ***" \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && echo "*** Installing Imagick extension! ***" \
