@@ -41,11 +41,12 @@ I use these images for personal purposes for a development enviromnet. With some
 - NGINX on Alpine 3.8 ready for Laravel
 - MYSQL official image
 - REDIS on Alpine official image
+- NPM:latest official image to manage frontend dependencies
 
 ### Versioning
-| Docker Tag | Git Release | Nginx Version | PHP Version | Alpine Version | MySQL | Redis |
-|-----|-------|-----|--------|--------|--------|--------| 
-| latest/1.0.0 | Master Branch | 1.19.1 | 7.2.0 | 3.8 | 5.7.22 | latest |
+| Docker Tag | Git Release | Nginx Version | PHP Version | Alpine Version | MySQL | Redis | NPM |
+|-----|-------|-----|--------|--------|--------|--------|--------| 
+| latest/1.0.0 | Master Branch | 1.19.1 | 7.2.0 | 3.8 | 5.7.22 | latest | latest |
 
 
 ### Links
