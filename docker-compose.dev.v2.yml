@@ -63,7 +63,7 @@ services:
       - dpnetwork
 
   npm137:
-    image: node:13.7
+    image: node:current-alpine3.12
     container_name: laravel-npm
     depends_on:
       - phpfpm
