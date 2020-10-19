@@ -3,8 +3,8 @@ services:
 
   #PHP FPM Service
   phpfpm:
-    image: dariopad/php74-laravel:latest
-    container_name: laravel-php74
+    image: dariopad/php-pfm-laravel:7.4
+    container_name: laravel-php
     restart: unless-stopped
     tty: true
     env_file:
