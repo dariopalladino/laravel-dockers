@@ -18,7 +18,7 @@ RUN echo "*** Upgrading Alpine! ***" \
     libtool postgresql-dev libpng-dev imagemagick-c++ imagemagick-dev libmcrypt-dev libxml2-dev libzip-dev oniguruma-dev \
     yaml-dev bzip2 aspell-dev autoconf build-base linux-headers libaio-dev zlib-dev git subversion freetype-dev \
     libjpeg-turbo-dev libmcrypt-dev bzip2-dev libstdc++ libxslt-dev openldap-dev hiredis-dev make unzip \
-    ffmpeg wget sqlite
+    ffmpeg wget sqlite-dev
 
 #Step 6
 RUN echo "*** Installing Composer! ***" \
@@ -44,7 +44,7 @@ RUN echo "*** Installing Composer! ***" \
     && echo 'xdebug.remote_port=9000' >> /etc/php7/php.ini \
     && echo 'xdebug.remote_handler=dbgp' >> /etc/php7/php.ini \
     && echo 'xdebug.max_nesting_level=512' >> /etc/php7/php.ini \
-    && rm -rf /tmp/pear && apk del -f .build-deps
+    && rm -rf /tmp/pear
     # Cleanup dev dependencies
 
 #Step 7
