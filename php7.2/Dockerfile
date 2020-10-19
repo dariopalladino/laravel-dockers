@@ -1,6 +1,8 @@
 #Step 1
 FROM php:7.2-fpm-alpine3.8
 
+LABEL version="1.0"
+
 #Step 2
 ARG uid
 
@@ -11,7 +13,8 @@ ARG user
 WORKDIR /var/www
 
 #Step 5
-RUN echo "*** Upgrading Alpine! ***" \
+RUN echo "*** USER: $user" && echo "*** UID: $uid" \
+    && echo "*** Upgrading Alpine! ***" \
     && apk update && apk upgrade \
     && echo "*** Adding php libraries! ***" \
     && apk add --no-cache curl libbz2 php7-bz2 php7-pdo php7-pgsql php7-bcmath php7-zmq php7-curl bash php7-pear php7-imagick openssh nano supervisor\
