@@ -1,4 +1,4 @@
-![PHP72-Laravel](https://img.shields.io/docker/pulls/dariopad/php72-laravel.svg?style=flat-square)
+![PHP-FPM-Laravel](https://img.shields.io/docker/pulls/dariopad/php-fpm-laravel.svg?style=flat-square)
 ![Nginx-Laravel](https://img.shields.io/docker/pulls/dariopad/nginx-laravel.svg?style=flat-square)
 
 ## Overview
@@ -22,19 +22,18 @@ docker-compose down
 To change image configurations or increase PHP version, edit the Dockerfile and run the docker-compose command with --build option. 
 
 ### PHP FPM image
-PHP is based on version 7.2. I'll be adding the option to switch to version 7.4
+PHP is based on version 7.2 and 7.4
 - Standard modules installed are: 
-curl, gd, bcmath, zip, bz2, pdo, pdo_pgsql, simplexml, opcache, sockets, mbstring, pcntl, xsl, pspell, opcache, pdo_mysql
+curl, gd, bcmath, zip, bz2, pdo, pdo_pgsql, simplexml, opcache, sockets, mbstring, pcntl, xsl, pspell, tokenize, pdo_sqlite, pdo_mysql
 - Extra modules installed are:
 Xdebug, Imagick, Redis
 
 ### Note
-I use these images for personal purposes for a development enviromnet. With some small enhancements, this architecture can be used also for productive environments.
+I use these images for personal purposes on a development enviromnets. With some small tweacks, this architecture can be used for productive environments as well.
 
 - I'll be adding MySQL Cluster with two nodes and a master node.
 - I'll be adding Fail2Ban on the Nginx image
 - I'll be improving Cerbot management. In the current version, this implementation is not completed and therefore, not ready for a productive environment.
-- I'll be adding the NPM image for frontend dependency management.
 
 ### Images
 - PHP FPM on Alpine 3.8 ready for Laravel
@@ -46,10 +45,10 @@ I use these images for personal purposes for a development enviromnet. With some
 ### Versioning
 | Docker Tag | Git Release | Nginx Version | PHP Version | Alpine Version | MySQL | Redis | NPM |
 |-----|-------|-----|--------|--------|--------|--------|--------| 
-| latest/1.0.0 | Master Branch | 1.19.1 | 7.2.0 | 3.8 | 5.7.22 | latest | latest |
+| latest | Master Branch | 1.19.1 | 7.x.0 | 3.8 | 5.7.22 | latest | latest |
 
 
 ### Links
-- [https://hub.docker.com/repository/docker/dariopad/php72-laravel/general](https://hub.docker.com/repository/docker/dariopad/php72-laravel/general)
-- [https://hub.docker.com/repository/docker/dariopad/nginx-laravel/general](https://hub.docker.com/repository/docker/dariopad/php72-laravel/general)
+- [https://hub.docker.com/repository/docker/dariopad/php-fpm-laravel/general](https://hub.docker.com/repository/docker/dariopad/php-fpm-laravel/general)
+- [https://hub.docker.com/repository/docker/dariopad/nginx-laravel/general](https://hub.docker.com/repository/docker/dariopad/nginx-laravel/general)
 
