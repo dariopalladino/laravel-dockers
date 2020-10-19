@@ -17,19 +17,19 @@ services:
 
   #Nginx Service
   webserver:
-    image: nginx:alpine
+    image: dariopad/nginx-laravel:latest
     container_name: laravel-nginx
     restart: unless-stopped
     tty: true
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - "8085:80"
+      - "80:80"
     depends_on:
       - phpfpm
       - mysql57
     volumes:
       - ./src:/var/www
-      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/    
+      - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
     networks:
       - dpnetwork
 

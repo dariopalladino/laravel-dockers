@@ -2,7 +2,7 @@ version: '3'
 services:
 
   #PHP FPM Service
-  php72:
+  phpfpm:
     image: dariopad/php-fpm-laravel:7.2
     container_name: laravel-php
     restart: unless-stopped
@@ -26,12 +26,11 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - php72
+      - phpfpm
       - mysql57
     volumes:
       - ./src:/var/www
-      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/ # if you want to update current conf
-      - ./.docker/nginx/ssl/:/etc/nginx/ssl/
+      - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
     networks:
       - dpnetwork
 
@@ -67,6 +66,8 @@ services:
   npm137:
      image: node:13.7
      container_name: laravel-npm
+     depends_on:
+       - phpfpm     
      volumes:
        - ./src:/var/www
      working_dir: /var/www
