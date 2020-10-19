@@ -18,8 +18,7 @@ RUN echo "*** Upgrading Alpine! ***" \
     libtool postgresql-dev libpng-dev imagemagick-c++ imagemagick-dev libmcrypt-dev libxml2-dev libzip-dev oniguruma-dev \
     yaml-dev bzip2 aspell-dev autoconf build-base linux-headers libaio-dev zlib-dev git subversion freetype-dev \
     libjpeg-turbo-dev libmcrypt-dev bzip2-dev libstdc++ libxslt-dev openldap-dev hiredis-dev make unzip \
-    ffmpeg wget    
-    #&& apk cache clean
+    ffmpeg wget sqlite3
 
 #Step 6
 RUN echo "*** Installing Composer! ***" \
