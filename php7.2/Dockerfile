@@ -28,7 +28,7 @@ RUN echo "*** USER: $user" && echo "*** UID: $uid" \
 RUN echo "*** Installing Composer! ***" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && echo "*** Installing PHP extentions! ***" \
-    && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell opcache pdo_mysql \
+    && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell pdo_mysql \
     && echo "*** Configuring PHP GD extension! ***" \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && echo "*** Installing Imagick extension! ***" \
@@ -78,9 +78,5 @@ RUN mkdir -p /var/temp \
 ADD .docker/php/laravel/.env /var/temp
 
 #Step 11
-# Change current user to www
+# Change to current user
 USER $user
-
-#Step 13
-# RUN configuration script
-#CMD ["/start.sh", "$user"]

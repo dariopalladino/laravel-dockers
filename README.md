@@ -13,7 +13,8 @@ git clone https://github.com/dariopalladino/laravel-dockers.git
 ### Running
 Use docker-compose to run the whole architecture:
 ```
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.dev.v2.yml up -d  #for Laravel 8
+docker-compose -f docker-compose.dev.yml up -d  #for Laravel 5.5 to 7
 ```
 To stop the whole architecture:
 ```

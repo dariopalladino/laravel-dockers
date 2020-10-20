@@ -24,6 +24,7 @@ services:
     #Temporary enabling host 8080 and 8443 for dev
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - phpfpm
       - mysql57

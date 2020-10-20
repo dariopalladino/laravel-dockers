@@ -53,7 +53,7 @@ RUN echo "*** Installing Composer! ***" \
 #Step 7
 # Add user for laravel application
 RUN echo "*** Adding user! ***" \
-    && adduser -S -D --ingroup www-data --uid $uid --shell /bin/bash --create-home $user \
+    && adduser -S -D --ingroup www-data --uid $uid --shell /bin/bash -h /home/$user $user \
     && chown -R $user:www-data .
 
 #Step 8
