@@ -25,8 +25,8 @@ services:
       - ./docker-compose.env    
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - $NGINX_PORT_BINDING
-      - $NGINX_SSL_PORT_BINDING
+      - "$NGINX_PORT_BINDING"
+      - "$NGINX_SSL_PORT_BINDING"
     depends_on:
       - phpfpm
       - mysql57
@@ -47,7 +47,7 @@ services:
       - ./docker-compose.env    
     #for host dev enabling 33061
     ports:
-      - $MYSQL_PORT_BINDING
+      - "$MYSQL_PORT_BINDING"
     environment:
       MYSQL_DATABASE: $MYSQL_DATABASE_NAME
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD #to be changed
