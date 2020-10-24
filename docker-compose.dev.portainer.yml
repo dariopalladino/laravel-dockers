@@ -30,6 +30,7 @@ services:
       - mysql57
     volumes:
       - ./src:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
       - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
     networks:
       - dpnetwork
