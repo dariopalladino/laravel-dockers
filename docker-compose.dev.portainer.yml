@@ -21,10 +21,12 @@ services:
     container_name: laravel-nginx
     restart: unless-stopped
     tty: true
+    env_file:
+      - ./docker-compose.env    
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - "80:80"
-      - "443:443"
+      - $NGINX_PORT_BINDING
+      - $NGINX_SSL_PORT_BINDING
     depends_on:
       - phpfpm
       - mysql57
@@ -41,12 +43,14 @@ services:
     container_name: laravel-mysql57
     restart: unless-stopped
     tty: true
+    env_file:
+      - ./docker-compose.env    
     #for host dev enabling 33061
     ports:
-      - "3306:3306"
+      - $MYSQL_PORT_BINDING
     environment:
-      MYSQL_DATABASE: your_database_name
-      MYSQL_ROOT_PASSWORD: your_temp_root_password #to be changed
+      MYSQL_DATABASE: $MYSQL_DATABASE_NAME
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD #to be changed
       MYSQL_ALLOW_EMPTY_PASSWORD: 1 # temporary for dev envs
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
