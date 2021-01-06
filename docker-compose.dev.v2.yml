@@ -3,7 +3,7 @@ services:
 
   #PHP FPM Service
   phpfpm:
-    image: dariopad/php-pfm-laravel:7.4
+    image: dariopad/php-fpm-laravel:7.4
     container_name: laravel-php
     restart: unless-stopped
     tty: true
@@ -23,27 +23,27 @@ services:
     tty: true
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - "80:80"
-      - "443:443"
+      - "${NGINX_PORT_BINDING:-8080}:80"
+      - "${NGINX_SSL_PORT_BINDING:-8443}:443"
     depends_on:
       - phpfpm
       - mysql57
     volumes:
-      - ./src:/var/www
-      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
+      - ./src:/var/www      
+      - ./.docker/nginx/ssl/:/etc/nginx/conf.d/ # if you want to update ssl conf
+      - ./.docker/cerbot/conf/:/etc/letsencrypt/
     networks:
       - dpnetwork
 
   #MySQL Service
   mysql57:
-    image: mysql:5.7.22
+    image: mysql:5.7.32
     container_name: laravel-mysql57
     restart: unless-stopped
     tty: true
     #for host dev enabling 33061
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT_BINDING:-33061}:3306"
     environment:
       MYSQL_DATABASE: your_database #change
       MYSQL_ROOT_PASSWORD: temp #change after deployment
@@ -52,7 +52,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - dbdata:/var/lib/mysql/
-      - ./.docker/mysql/config:/etc/mysql
+      #- ./.docker/mysql/config:/etc/mysql
       - ./.docker/mysql/dump:/docker-entrypoint-initdb.d
     networks:
       - dpnetwork
@@ -80,7 +80,7 @@ services:
 networks:
   dpnetwork:
     external:
-        name: thepenguindockers
+        name: commsnet
 
 #Volumes
 volumes:
