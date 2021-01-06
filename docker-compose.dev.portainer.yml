@@ -8,10 +8,10 @@ services:
     restart: unless-stopped
     tty: true
     env_file:
-      - ./docker-compose.env
+      - /opt/virtualization/dockers/images/laravel/docker-compose.env
     working_dir: /var/www
     volumes:
-      - ./src:/var/www
+      - /opt/virtualization/dockers/images/laravel/src:/var/www
     networks:
       - dpnetwork
 
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     tty: true
     env_file:
-      - ./docker-compose.env    
+      - /opt/virtualization/dockers/images/laravel/docker-compose.env    
     #Temporary enabling host 8080 and 8443 for dev
     ports:
       - "${NGINX_PORT_BINDING:-8080}:80"
@@ -31,9 +31,9 @@ services:
       - phpfpm
       - mysql57
     volumes:
-      - ./src:/var/www
-      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
+      - /opt/virtualization/dockers/images/laravel/src:/var/www
+      - /opt/virtualization/dockers/images/laravel/.docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - /opt/virtualization/dockers/images/laravel/.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
     networks:
       - dpnetwork
 
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     tty: true
     env_file:
-      - ./docker-compose.env    
+      - /opt/virtualization/dockers/images/laravel/docker-compose.env    
     #for host dev enabling 33061
     ports:
       - "${MYSQL_PORT_BINDING:-33061}:3306"
@@ -55,9 +55,9 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/mysql/
-      - ./.docker/mysql/config:/etc/mysql #if you have specific configurations
-      - ./.docker/mysql/dump:/docker-entrypoint-initdb.d # to run your database installation
+      - dbdata:/var/lib/mysql/ 
+      - /opt/virtualization/dockers/images/laravel/.docker/mysql/config:/etc/mysql #if you have specific configurations
+      - /opt/virtualization/dockers/images/laravel/.docker/mysql/dump:/docker-entrypoint-initdb.d # to run your database installation
     networks:
       - dpnetwork
 
@@ -74,7 +74,7 @@ services:
      depends_on:
        - phpfpm     
      volumes:
-       - ./src:/var/www
+       - /opt/virtualization/dockers/images/laravel/src:/var/www
      working_dir: /var/www
      entrypoint: ['npm', "update"]
      networks:
@@ -84,10 +84,10 @@ services:
 networks:
   dpnetwork:
     external:
-        name: commsnet
+        name: commsnet #create this network up-front
 
 #Volumes
 volumes:
-  dbdata:
+  dbdata: 
     external:
-      name: dbdata
+      name: dbdata #create this volume up-front
