@@ -3,7 +3,7 @@
 
 ## Overview
 This is a Dockerfile/image repository to build a set of container with nginx, php-fpm, redis and mysql, ready to be used with Laravel. There is the ability to pull website code from git when the PHP-FPM container is created, by using the start.sh script. Of course, you can just map your source code folder to the container for development purposes.
-
+Certbot finally added and nginx ssl configuration enabled.
 
 ## Quick Start
 Clone this repo:
@@ -34,7 +34,7 @@ I use these images for personal purposes on a development enviromnets. With some
 
 - I'll be adding MySQL Cluster with two nodes and a master node.
 - I'll be adding Fail2Ban on the Nginx image
-- I'll be improving Cerbot management. In the current version, this implementation is not completed and therefore, not ready for a productive environment.
+- Certbot is installed alongside with certbot nginx plugin. Certbot renew process is also scheduled with crontab to run every day for certificate renewal (no-self-upgrade, though)
 
 ### Images
 - PHP FPM on Alpine 3.8 ready for Laravel
