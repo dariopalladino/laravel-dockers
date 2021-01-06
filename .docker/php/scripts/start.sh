@@ -20,7 +20,7 @@ if [[ "$GIT_USE_SSH" == "1" ]] ; then
     if [ ! -z "$SSH_KEY" ]; then
         echo $SSH_KEY > /root/.ssh/id_rsa.base64
         base64 -d /root/.ssh/id_rsa.base64 > /root/.ssh/id_rsa
-        chmod 600 /root/.ssh/id_rsa
+        chmod 400 /root/.ssh/id_rsa
     fi
 fi
 
