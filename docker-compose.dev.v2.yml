@@ -23,8 +23,8 @@ services:
     tty: true
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "${NGINX_PORT_BINDING:-8080}:80"
+      - "${NGINX_SSL_PORT_BINDING:-8443}:443"
     depends_on:
       - phpfpm
       - mysql57
@@ -43,7 +43,7 @@ services:
     tty: true
     #for host dev enabling 33061
     ports:
-      - "33061:3306"
+      - "${MYSQL_PORT_BINDING:-33061}:3306"
     environment:
       MYSQL_DATABASE: your_database #change
       MYSQL_ROOT_PASSWORD: temp #change after deployment
