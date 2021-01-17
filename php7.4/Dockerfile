@@ -18,18 +18,19 @@ RUN echo "*** USER: $user" && echo "*** UID: $uid" \
     && apk update && apk upgrade \
     && echo "*** Adding php libraries! ***" \
     && apk add --no-cache curl libbz2 php7-bz2 php7-pdo php7-pgsql php7-bcmath php7-zmq php7-curl bash php7-pear php7-imagick openssh nano supervisor\
-    libtool postgresql-dev libpng-dev imagemagick-c++ imagemagick-dev libmcrypt-dev libxml2-dev libzip-dev oniguruma-dev \
+    libtool postgresql-dev libpng libpng-dev imagemagick-c++ imagemagick-dev libmcrypt-dev libxml2-dev libwebp-tools libwebp-dev  libzip-dev oniguruma-dev \
     yaml-dev bzip2 aspell-dev autoconf build-base linux-headers libaio-dev zlib-dev git subversion freetype-dev \
-    libjpeg-turbo-dev libmcrypt-dev bzip2-dev libstdc++ libxslt-dev openldap-dev hiredis-dev make unzip \
+    libjpeg libjpeg-turbo-dev libmcrypt-dev bzip2-dev libstdc++ libxslt-dev openldap-dev hiredis-dev make unzip \
     ffmpeg wget sqlite-dev
 
 #Step 6
 RUN echo "*** Installing Composer! ***" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && echo "*** Installing PHP extentions! ***" \
-    && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring iconv pcntl xsl exif pspell tokenizer pdo_mysql pdo_sqlite\
+    && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell opcache pdo_mysql \
     && echo "*** Configuring PHP GD extension! ***" \
-    && docker-php-ext-configure gd \
+    && docker-php-ext-configure gd --with-gd --with-jpeg-dir --with-png-dir --with-zlib-dir --with-freetype-dir \
+    && docker-php-ext-enable gd \
     && echo "*** Installing Imagick extension! ***" \
     && pecl install imagick \
     && echo "*** Enabling PHP Imagick extentions! ***" \

@@ -3,7 +3,7 @@ services:
 
   #PHP FPM Service
   phpfpm:
-    image: dariopad/php-fpm-laravel:7.2
+    image: dariopad/php-fpm-laravel:7.3
     container_name: laravel-php
     restart: unless-stopped
     tty: true
@@ -21,39 +21,44 @@ services:
     container_name: laravel-nginx
     restart: unless-stopped
     tty: true
+    env_file:
+      - ./docker-compose.env    
     #Temporary enabling host 8080 and 8443 for dev
     ports:
-      - "80:80"
-      - "443:443"
+      - "${NGINX_PORT_BINDING:-8080}:80"
+      - "${NGINX_SSL_PORT_BINDING:-8443}:443"
     depends_on:
       - phpfpm
       - mysql57
     volumes:
-      - ./src:/var/www
-      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./.docker/nginx/ssl/:/etc/nginx/ssl/ # if you want to update ssl conf
+      - ./src:/var/www      
+      - ./.docker/nginx/ssl/:/etc/nginx/conf.d/ # if you want to update ssl conf
+      - ./.docker/cerbot/conf/:/etc/letsencrypt/
     networks:
       - dpnetwork
 
   #MySQL Service
+  #MySQL Service
   mysql57:
-    image: mysql:5.7.22
+    image: mysql:5.7.32
     container_name: laravel-mysql57
     restart: unless-stopped
     tty: true
+    env_file:
+      - ./docker-compose.env    
     #for host dev enabling 33061
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT_BINDING:-33061}:3306"
     environment:
-      MYSQL_DATABASE: your_database_name
-      MYSQL_ROOT_PASSWORD: your_temp_root_password #to be changed
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1 # temporary for dev envs
+      MYSQL_DATABASE: your_database #change
+      MYSQL_ROOT_PASSWORD: temp #change after deployment
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 #for testing purpose only
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
       - dbdata:/var/lib/mysql/
-      - ./.docker/mysql/config:/etc/mysql #if you have specific configurations
-      - ./.docker/mysql/dump:/docker-entrypoint-initdb.d # to run your database installation
+      #- ./.docker/mysql/config:/etc/mysql
+      - ./.docker/mysql/dump:/docker-entrypoint-initdb.d
     networks:
       - dpnetwork
 
