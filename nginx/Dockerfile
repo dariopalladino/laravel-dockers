@@ -7,4 +7,6 @@ RUN mkdir /etc/letsencrypt
 
 # Copy existing application directory contents
 COPY .docker/nginx/ssl/* /etc/nginx/conf.d/
-RUN echo '05 23 * * * /usr/bin/certbot renew --quiet --no-self-upgrade' >> /var/spool/cron/crontabs/root
+
+# Scheduling Cerbot only if required
+RUN if [[-z "$SCHEDULE_CERBOT"]] ; then echo "Cerbot won't be scheduled!" ; else echo '05 23 * * * /usr/bin/certbot renew --quiet --no-self-upgrade' >> /var/spool/cron/crontabs/root ; fi
