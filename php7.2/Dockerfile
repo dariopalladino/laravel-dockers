@@ -27,10 +27,10 @@ RUN echo "*** USER: $user" && echo "*** UID: $uid" \
 #Step 6
 RUN echo "*** Installing Composer! ***" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && echo "*** Configuring PHP GD extension! ***" \
+    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-webp-dir=/usr/include/webp/ --with-freetype-dir=/usr/include/freetype2/ \
     && echo "*** Installing PHP extentions! ***" \
     && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell pdo_mysql \
-    && echo "*** Configuring PHP GD extension! ***" \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && echo "*** Installing Imagick extension! ***" \
     && pecl install imagick \
     && echo "*** Enabling PHP Imagick extentions! ***" \

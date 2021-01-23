@@ -16,7 +16,7 @@ WORKDIR /var/www
 RUN echo "*** Upgrading Alpine! ***" \
     && apk update && apk upgrade \
     && echo "*** Adding php libraries! ***" \
-    && apk add --no-cache curl libbz2 php7-bz2 php7-pdo php7-pgsql php7-bcmath php7-zmq php7-curl bash php7-pear php7-imagick openssh nano supervisor\
+    && apk add --no-cache curl libbz2 php7-bz2 php7-pdo php7-pgsql php7-gd php7-bcmath php7-zmq php7-curl bash php7-pear php7-imagick openssh nano supervisor\
     libtool postgresql-dev libpng libpng-dev imagemagick-c++ imagemagick-dev libmcrypt-dev libxml2-dev libwebp-tools libwebp-dev \
     yaml-dev bzip2 aspell-dev autoconf build-base linux-headers libaio-dev zlib-dev git subversion freetype-dev \
     libjpeg libjpeg-turbo-dev libmcrypt-dev bzip2-dev libstdc++ libxslt-dev openldap-dev hiredis-dev make unzip \
@@ -36,10 +36,10 @@ RUN echo "*** Upgrading Alpine! ***" \
 #Step 6
 RUN echo "*** Installing Composer! ***" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && echo "*** Configuring PHP GD extension! ***" \
+    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ --with-webp-dir=/usr/include/webp/ --with-freetype-dir=/usr/include/freetype2/ \
     && echo "*** Installing PHP extentions! ***" \
     && docker-php-ext-install gd bcmath zip bz2 pdo pdo_pgsql simplexml opcache sockets mbstring pcntl xsl pspell opcache pdo_mysql \
-    && echo "*** Configuring PHP GD extension! ***" \
-    && docker-php-ext-configure gd --with-gd --with-jpeg-dir --with-png-dir --with-zlib-dir --with-freetype-dir \
     && docker-php-ext-enable gd \
     && echo "*** Installing Imagick extension! ***" \
     && pecl install imagick \
@@ -49,15 +49,15 @@ RUN echo "*** Installing Composer! ***" \
     && pecl install -o -f redis \
     && echo "*** Enabling Redis extention! ***" \
     && docker-php-ext-enable redis \
-    && echo "*** Installing PHP XDebug extention! ***" \
-    && pecl install xdebug \
-    && echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so' >> /usr/local/etc/php/php.ini \
-    && echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so' >> /etc/php7/php.ini \
-    && echo 'xdebug.remote_enable=true' >> /etc/php7/php.ini \
-    && echo 'xdebug.remote_host=127.0.0.1' >> /etc/php7/php.ini \
-    && echo 'xdebug.remote_port=9000' >> /etc/php7/php.ini \
-    && echo 'xdebug.remote_handler=dbgp' >> /etc/php7/php.ini \
-    && echo 'xdebug.max_nesting_level=512' >> /etc/php7/php.ini \
+    # && echo "*** Installing PHP XDebug extention! ***" \
+    # && pecl install xdebug \
+    # && echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so' >> /usr/local/etc/php/php.ini \
+    # && echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so' >> /etc/php7/php.ini \
+    # && echo 'xdebug.remote_enable=true' >> /etc/php7/php.ini \
+    # && echo 'xdebug.remote_host=127.0.0.1' >> /etc/php7/php.ini \
+    # && echo 'xdebug.remote_port=9000' >> /etc/php7/php.ini \
+    # && echo 'xdebug.remote_handler=dbgp' >> /etc/php7/php.ini \
+    # && echo 'xdebug.max_nesting_level=512' >> /etc/php7/php.ini \
     && rm -rf /tmp/pear
 
 #Step 7
