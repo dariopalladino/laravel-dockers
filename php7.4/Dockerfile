@@ -58,7 +58,7 @@ RUN echo "*** Adding user! ***" \
     && chown -R $user:www-data .
 
 #Step 8
-ADD .docker/php/scripts/start.sh /start.sh
+COPY .docker/php/scripts/start.sh /start.sh
 
 #Step 9
 RUN mkdir -p /var/temp \
@@ -67,7 +67,7 @@ RUN mkdir -p /var/temp \
     && chmod 775 /start.sh
 
 #Step 10
-ADD .docker/php/laravel/.env /var/temp
+# ADD .docker/php/laravel/.env /var/temp
 
 #Step 11
 # Change to current user
