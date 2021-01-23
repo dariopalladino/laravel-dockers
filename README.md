@@ -31,8 +31,8 @@ Xdebug (only 7.2 and 7.4), Imagick, Redis
 ### Note
 I use these images for personal purposes on a development environmet. With some small tweaks, this architecture can be used for productive environments as well.
 
-- [] I'll be adding MySQL Cluster with two nodes and a master node.
-- [] I'll be adding Fail2Ban on the Nginx image
+- [ ] I'll be adding MySQL Cluster with two nodes and a master node.
+- [ ] I'll be adding Fail2Ban on the Nginx image
 - [x] Certbot is installed alongside with certbot nginx plugin. Certbot renew process is also scheduled with crontab to run every day for certificate renewal (no-self-upgrade, though)
 
 ### Images
